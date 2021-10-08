@@ -1,9 +1,11 @@
-from data.EntityHandler import (Meetup, Params)
+from data.models import (RsvpMeetup, Params)
 
-AVAILABLE_API_ENTITIES = [Meetup, Params]
+AVAILABLE_API_ENTITIES = [RsvpMeetup, Params]
 
 # Map `entity : endpoint name`
 ENDPOINT_MAP = {
-    Meetup: 'meetups',
+    RsvpMeetup: 'meetups',
     Params: 'params'
 }
+
+TEST_UNIT_DATA_DIR = 'tests/unit/test_data'

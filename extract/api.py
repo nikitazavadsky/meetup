@@ -4,8 +4,7 @@ import json
 
 from pydantic import ValidationError
 
-from data.DataModels import RequestResponse
-from data.EntityHandler import EntityConverterHandler
+from data.entity_handler import EntityConverterHandler
 
 
 class API:
@@ -23,33 +22,6 @@ class API:
         if code != 200:
             raise ValueError(f"Response is not OK but {code}")
         return True
-
-    @staticmethod
-    def get_entity(content):
-        title = content.get('title')
-        description = content.get('description')
-        date = content.get('date')
-
-        try:
-            response_obj = RequestResponse(title=title,
-                                           description=description,
-                                           date=date)
-        except ValueError as e:
-            raise ValidationError("Not valid entity", e)
-
-        return response_obj
-
-    def content_to_entities(self, content):
-        """Method converts content to entity / list of entities"""
-
-        entities = content.get('entities')
-        if entities:
-            if isinstance(entities, list):
-                entities_list = []
-                for entity_dict in entities:
-                    entities_list.append(self.get_entity(content=entity_dict))
-                return entities_list
-            return self.get_entity(content=entities)
 
     def get(self, endpoint):
         """Method uses requests and some parameters to get entities from the API"""
